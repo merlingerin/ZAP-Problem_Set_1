@@ -19,6 +19,13 @@ void moveBack(void);
 void drowLeftSide11();
 void drowLeftSide01();
 void drowLeftSide10();
+void drowCenter11();
+void drowCenter10();
+void drowRightSide11();
+void drowRightSide10();
+void drowRightSide01();
+void drowRightSide00();
+
 
 int main()
 { 	turnOn("tetris.kw");
@@ -27,54 +34,66 @@ int main()
 
 
 		moveToItem();
-		defineLeftSide();
-
+		defineShape();
 
 	turnOff();
 return 0;
 }
+
+
 			//Define functions
 
 
 			//Define Shape of Item
 void defineShape() {
-	if ( frontIsBlocked() )
-	{
-		defineLeftSide();
-		defineCenterSide();
-		defineRightSide();
-	}
+	defineLeftSide();
+	defineCenterSide();
+	defineRightSide();
+
 }
 
 			//Define Right Side Of Item
 void defineRightSide() {
-	movek();
-	if ( leftIsBlocked() )
+	moveRight();
+	moveUp();
+	moveRight();
+	moveUp();
+	moveUp();
+	turnBack();
+	if ( frontIsBlocked() )
 	{
-		putBeeper();
+		moveDown();
+		if ( frontIsBlocked() )
+		{
+			drowRightSide11();
+		}
+		else {
+			drowRightSide10();
+		}
 	}
-	else {
-		turnLeft();
-		movek();
-		putBeeper();
+	else if ( frontIsClear() ) {
+		moveDown();
+		if ( frontIsClear() )
+		{
+			drowRightSide00();
+		}
+		else {
+			drowRightSide01();
+		}
 	}
+
 }
 			//Define Center Side Of Item
 void defineCenterSide() {
-	if (!frontIsBlocked())
-			{
-				movek();
-				putBeeper();
-			}
+	moveUp();
+	moveRight();
+	if ( leftIsBlocked() )
+	{
+		drowCenter11();
+	}
 	else {
-		turnRight();
-		movek();
-		turnLeft();
-		movek();
-		loop(2){
-			putBeeper();
-		}
-	}		
+		drowCenter10();
+	}
 }
 
 			//Define Left Side Of Item
@@ -89,12 +108,53 @@ void defineLeftSide() {
 		}
 		else {
 			drowLeftSide10();
-		}
-			
+		}		
 	}
 }
 
+			//Drow Right Side
+void drowRightSide10(){
+	moveDown();
+	moveLeft();
+	putBeeper();
+	moveDown();
+}
 
+void drowRightSide11(){
+	moveDown();
+	moveLeft();
+	putBeeper();
+	moveDown();
+	putBeeper();
+}
+
+void drowRightSide01(){
+	moveDown();
+	moveLeft();
+	moveDown();
+	putBeeper();
+}
+
+void drowRightSide00(){
+	moveDown();
+	moveLeft();
+	moveDown();
+	moveDown();
+}
+
+			//Drow Center
+void drowCenter11() {
+	putBeeper();
+	moveDown();
+	putBeeper();
+}
+
+void drowCenter10() {
+	putBeeper();
+	moveDown();
+}
+
+			//Drow Left Side
 void drowLeftSide01() {
 	moveLeft();
 	moveDown();
@@ -118,6 +178,8 @@ void drowLeftSide11() {
 	moveDown();
 	putBeeper();
 }
+
+
 			//Turn Right
 void turnRight() {
 	loop(3) {
@@ -307,8 +369,9 @@ void moveDown(void){
 		turnLeft();
 		turnLeft();
 		turnLeft();
-		setStepDelay(SPEED);
 		movek();
+		setStepDelay(SPEED);
+		turnLeft();
 	}
 }
 
