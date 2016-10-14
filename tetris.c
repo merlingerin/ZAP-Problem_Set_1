@@ -1,5 +1,9 @@
 #include "karel.h"
 
+#define SPEED 100
+
+void defineRightSide();
+void defineCenterSide();
 void defineLeftSide();
 void defineShape();
 void climbStairs();
@@ -7,13 +11,24 @@ void turnBack();
 void turnRight();
 void moveToItem();
 void item1();
+void moveUp(void);
+void moveDown(void);
+void moveLeft(void);
+void moveRight(void);
+void moveBack(void);
+
 
 int main()
-{ 	turnOn("tetris1.kw");
+{ 	turnOn("tetris.kw");
 	
 	setStepDelay(100);
-	moveToItem();
-	defineShape();
+	while(frontIsClear()){
+		moveUp();
+		moveDown();
+	}
+
+	// moveToItem();
+	// defineShape();
 	turnOff();
 return 0;
 }
@@ -26,9 +41,24 @@ void defineShape() {
 	{
 		turnRight();
 		defineLeftSide();
+		defineCenterSide();
+		defineRightSide();
 	}
 }
 
+			//Define Right Side Of Item
+void defineRightSide() {
+	movek();
+	if ( leftIsBlocked() )
+	{
+		putBeeper();
+	}
+	else {
+		turnLeft();
+		movek();
+		putBeeper();
+	}
+}
 			//Define Center Side Of Item
 void defineCenterSide() {
 	if (!frontIsBlocked())
@@ -55,6 +85,7 @@ void defineLeftSide() {
 			if ( leftIsBlocked() )
 			{
 				movek();
+				movek();
 				turnLeft();
 				movek();
 				loop(2){
@@ -79,12 +110,12 @@ void turnRight() {
 
 
 			//Move Back
-void moveBack() {
-	loop(2) {
-		turnLeft();
-	}
-	movek();
-}
+// void moveBack() {
+// 	loop(2) {
+// 		turnLeft();
+// 	}
+// 	movek();
+// }
 	
 			//Turn Back
 void turnBack() {
@@ -140,6 +171,136 @@ void placeForItem1() {
 		}
 
 	}
+}
 
+void moveUp(void) {
+	setStepDelay(20);
+	if (facingNorth())
+	{	
+		setStepDelay(SPEED);
+		movek();
+	}
+	else if (facingSouth())
+	{
+		moveBack();
+	}
+	else if (facingEast())
+	{
+		turnLeft();
+		movek();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+	else if (facingWest())
+	{
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		movek();
+	}
+}
 
+void moveLeft(void) {
+	setStepDelay(20);
+	if (facingWest())
+	{	
+		setStepDelay(SPEED);
+		movek();
+	}
+	else if (facingEast())
+	{
+		moveBack();
+	}
+	else if (facingNorth())
+	{
+		turnLeft();
+		movek();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+	else if (facingSouth())
+	{
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		movek();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+}
+
+void moveRight(void){
+	setStepDelay(20);
+	if (facingEast())
+	{	
+		setStepDelay(SPEED);
+		movek();
+	}
+	else if (facingWest())
+	{	
+		moveBack();
+	}
+	else if (facingSouth())
+	{
+		turnLeft();
+		movek();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+	else if (facingNorth())
+	{
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		movek();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+}
+
+void moveDown(void){
+	setStepDelay(100);
+	if (facingSouth())
+	{	
+		setStepDelay(SPEED);
+		movek();
+	}
+	else if (facingNorth())
+	{
+		moveBack();
+	}
+	else if (facingWest())
+	{
+		turnLeft();
+		movek();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		turnLeft();
+	}
+	else if (facingEast())
+	{
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		setStepDelay(SPEED);
+		movek();
+	}
+}
+
+void moveBack(void){
+   setStepDelay(0);
+   turnLeft();
+   turnLeft();
+   movek();
+   turnLeft();
+   setStepDelay(SPEED);
+   turnLeft();
 }
