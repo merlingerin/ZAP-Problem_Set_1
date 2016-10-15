@@ -59,6 +59,8 @@ void moveItem110110();
 void moveItem111010();
 void moveItem010111();
 
+void moveObject();
+
 int behindLeftBeeper();
 int behindRightBeeper();
 int leftBeeper();
@@ -90,30 +92,7 @@ int main()
 		moveToItem();
 		defineShape();
 		moveLeft();
-		if ( item111010() )
-		{
-			moveItem111010();
-		}
-		// moveItem110011();
-		// if (leftBeeper() && beepersPresent() && rightBeeper() )
-		// {
-		// 	if (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked() )
-		// 	{
-		// 		pickAllBeeper();
-		// 		putAllBeeper();
-		// 	}
-		// }
-		// else if (leftBeeper() && beepersPresent() && !rightBeeper()) {
-		// 	if (!frontLeftBlocked() && !leftIsBlocked())
-		// 	{
-		// 		putLeftBeeper();
-		// 		putCenterBeeper();
-		// 	}
-		// }
-		// else if (!leftBeeper() && beepersPresent() && rightBeeper())
-		// {
-		// 	if
-		// }
+		moveObject();
 		
 	turnOff();
 return 0;
@@ -121,6 +100,34 @@ return 0;
 
 
 			//Define functions
+
+			//Move Objects
+void moveObject() {
+	if ( item111000() )
+	{
+		moveItem111000();
+	}
+	else if ( item110011() )
+	{
+		moveItem110011();
+	}
+	else if ( item011110() )
+	{
+		moveItem011110();
+	}
+	else if ( item110110() )
+	{
+		moveItem110110();
+	}
+	else if ( item111010() )
+	{
+		moveItem111010();
+	}
+	else if ( item010111() )
+	{
+		moveItem010111();
+	}
+}
 
 			//Define Type Of Item 
 int item111000() {
