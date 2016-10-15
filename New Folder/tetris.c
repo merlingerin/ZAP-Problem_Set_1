@@ -11,13 +11,6 @@ void turnBack();
 void turnRight();
 void moveToItem();
 void item1();
-//FAST MOVE 	
-void moveUpF(void);
-void moveDownF(void);
-void moveLeftF(void);
-void moveRightF(void);
-void moveBackF(void);
-
 //MOVE KAREL
 void moveUp(void);
 void moveDown(void);
@@ -67,7 +60,6 @@ void moveItem111010();
 void moveItem010111();
 
 void moveObject();
-void Exit();
 
 int behindLeftBeeper();
 int behindRightBeeper();
@@ -92,7 +84,7 @@ int item010111();
 
 
 int main()
-{ 	turnOn("tetris.kw");
+{ 	turnOn("tetris111010.kw");
 	
 	setStepDelay(SPEED);
 
@@ -100,59 +92,13 @@ int main()
 		defineShape();
 		moveLeft();
 		moveObject();
-		Exit();
+		
 	turnOff();
 return 0;
 }
 
 
 			//Define functions
-			//Karel goes to exit
-
-void Exit() {
-	loop(2){
-		turnRight();
-	}
-	while ( frontIsClear() || leftIsClear() ) {
-		 if (frontIsClear()){
-			while (frontIsClear()){
-				moveRight();
-			}
-		}
-		else if (leftIsClear() ){
-			while(leftIsClear()){
-				moveUp();
-			}
-		}
-	}
-	if ( rightIsClear() && frontIsBlocked() && leftIsBlocked() ){
-		while(rightIsClear()){
-			moveDown();
-		}
-	}
-}
-
-// void Exit() {
-// 	turnRight();
-// 	while( !frontIsBlocked() ) {
-// 		moveUp();
-// 		if ( frontIsBlocked() )
-// 		{	
-// 			while(frontIsBlocked() || rightIsClear() ){
-// 				moveRight();
-// 			}
-// 		}
-// 	}
-// 	while ( rightIsClear() ) {
-// 		moveRight();
-// 		if ( rightIsBlocked() && frontIsBlocked() )
-// 		{
-// 			while( !behindIsBlocked() ){
-// 				moveDown();
-// 			}
-// 		}
-// 	}
-// }
 
 			//Move Objects
 void moveObject() {
@@ -181,11 +127,11 @@ void moveObject() {
 	{
 		moveItem010111();
 	}
+	setStepDelay(SPEED);
 }
 
 			//Define Type Of Item 
 int item111000() {
-	setStepDelay(0);
 	if ( behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && !beepersPresent() && !rightBeeper() )
 	{
 		return 1;
@@ -195,7 +141,6 @@ int item111000() {
 }
 
 int item110011() {
-	setStepDelay(0);
 	if (behindLeftBeeper() && topBeeper() && !behindRightBeeper() && !leftBeeper() && beepersPresent() && rightBeeper() )
 	{
 		return 1;
@@ -205,7 +150,6 @@ int item110011() {
 }
 
 int item011110() {
-	setStepDelay(0);
 	if (!behindLeftBeeper() && topBeeper() && behindRightBeeper() && leftBeeper() && beepersPresent() && !rightBeeper() )
 	{
 		return 1;
@@ -215,7 +159,6 @@ int item011110() {
 }
 
 int item110110() {
-	setStepDelay(0);
 	if (behindLeftBeeper() && topBeeper() && !behindRightBeeper() && leftBeeper() && beepersPresent() && !rightBeeper() )
 	{
 		return 1;
@@ -225,7 +168,6 @@ int item110110() {
 }
 
 int item111010() {
-	setStepDelay(0);
 	if (behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && beepersPresent() && !rightBeeper() )
 	{
 		return 1;
@@ -235,7 +177,6 @@ int item111010() {
 }
 
 int item010111() {
-	setStepDelay(0);
 	if (!behindLeftBeeper() && topBeeper() && !behindRightBeeper() && leftBeeper() && beepersPresent() && rightBeeper() )
 	{
 		return 1;
@@ -458,84 +399,84 @@ void putBehindRightBeeper() {
 
 int behindLeftBeeper() {
 	setStepDelay(0);
-	moveUpF();
-	moveLeftF();
+	moveUp();
+	moveLeft();
 	if ( beepersPresent() ){
-		moveRightF();
-		moveDownF();
+		moveRight();
+		moveDown();
 		return 1;
 	}	
 	else {	 
-		moveRightF();
-		moveDownF();
+		moveRight();
+		moveDown();
 		return 0;
 	}		
 }
 
 int behindRightBeeper() {
 	setStepDelay(0);
-	moveUpF();
-	moveRightF();
+	moveUp();
+	moveRight();
 	if ( beepersPresent() ){
-		moveLeftF();
-		moveDownF();
+		moveLeft();
+		moveDown();
 		return 1;
 	}	
 	else {	 
-		moveLeftF();
-		moveDownF();
+		moveLeft();
+		moveDown();
 		return 0;
 	}		
 }
 
 int leftBeeper() {
 	setStepDelay(0);
-	moveLeftF();
+	moveLeft();
 	if ( beepersPresent() ){
-		moveRightF();
+		moveRight();
 		return 1;
 	}	
 	else {	 
-		moveRightF();
+		moveRight();
 		return 0;
 	}		
 }
 
 int rightBeeper() {
 	setStepDelay(0);
-	moveRightF();
+	moveRight();
 	if ( beepersPresent() ){
-		moveLeftF();
+		moveLeft();
 		return 1;
 	}	
 	else {
-		moveLeftF();
+		moveLeft();
 		return 0;
 	}		
 }
 
 int topBeeper() {
 	setStepDelay(0);
-	moveUpF();
+	moveUp();
 	if ( beepersPresent() ){
-		moveDownF();
+		moveDown();
 		return 1;
 	}	
 	else {	 
-		moveDownF();
+		moveDown();
 		return 0;
 	}		
 }
 
 int downBeeper() {
 	setStepDelay(0);
-	moveDownF();
+	moveDown();
 	if ( beepersPresent() ){
-		moveUpF();
+		moveUp();
 		return 1;
 	}	
 	else {	 
-		moveUpF();
+		moveUp();
 		return 0;
 	}		
 }
@@ -554,28 +495,28 @@ int behindIsBlocked() {
 
 int frontLeftBlocked(){
 	setStepDelay(0);
-	moveLeftF();
+	moveLeft();
 	if ( leftIsBlocked() )
 	{
-		moveRightF();
+		moveRight();
 		return 1;
 	}
 	else {
-		moveRightF();
+		moveRight();
 		return 0;
 	}
 }
 
 int frontRightBlocked(){
 	setStepDelay(0);
-	moveRightF();
+	moveRight();
 	if ( leftIsBlocked() )
 	{
-		moveLeftF();
+		moveLeft();
 		return 1;
 	}
 	else {
-		moveLeftF();
+		moveLeft();
 		return 0;
 	}
 }
@@ -720,7 +661,6 @@ void drowLeftSide11() {
 
 			//Turn Right
 void turnRight() {
-	setStepDelay(0);
 	loop(3) {
 		turnLeft();
 	}
@@ -729,7 +669,6 @@ void turnRight() {
 	
 			//Turn Back
 void turnBack() {
-	setStepDelay(0);
 	loop(2) {
 		turnLeft();
 	}
@@ -756,126 +695,126 @@ void moveToItem() {
 
 
 			//Moves for Define of Item
-void moveUpF(void) {
-	setStepDelay(0);
-	if (facingNorth())
-	{	
-		movek();
-	}
-	else if (facingSouth())
-	{
-		moveBackF();
-	}
-	else if (facingEast())
-	{
-		turnLeft();
-		movek();
-		turnLeft();
-		turnLeft();
-		turnLeft();
-	}
-	else if (facingWest())
-	{
-		turnLeft();
-		turnLeft();
-		turnLeft();
-		movek();
-		turnLeft();
-	}
-}
+// void moveUp(void) {
+// 	setStepDelay(0);
+// 	if (facingNorth())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingWest())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
 
-void moveLeftF(void) {
-	setStepDelay(0);
-	if (facingWest())
-	{	
-		movek();
-	}
-	else if (facingEast())
-	{
-		moveBackF();
-	}
-	else if (facingNorth())
-	{
-		turnLeft();
-		movek();
-		turnLeft();
-		turnLeft();
-		turnLeft();
-	}
-	else if (facingSouth())
-	{
-		turnLeft();
-		turnLeft();
-		turnLeft();
-		movek();
-		turnLeft();
-	}
-}
+// void moveLeft(void) {
+// 	setStepDelay(0);
+// 	if (facingWest())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
 
-void moveRightF(void){
-	setStepDelay(0);
-	if (facingEast())
-	{	
-		movek();
-	}
-	else if (facingWest())
-	{	
-		moveBackF();
-	}
-	else if (facingSouth())
-	{
-		turnLeft();
-		movek();
-		turnLeft();
-		turnLeft();
-		turnLeft();
-	}
-	else if (facingNorth())
-	{
-		turnLeft();
-		turnLeft();
-		turnLeft();
-		movek();
-		turnLeft();
-	}
-}
+// void moveRight(void){
+// 	setStepDelay(0);
+// 	if (facingEast())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingWest())
+// 	{	
+// 		moveBack();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
 
-void moveDownF(void){
-	setStepDelay(0);
-	if (facingSouth())
-	{	
-		movek();
-	}
-	else if (facingNorth())
-	{
-		moveBack();
-	}
-	else if (facingWest())
-	{
-		turnLeft();
-		movek();
-		turnLeft();
-		turnLeft();
-		turnLeft();
-	}
-	else if (facingEast())
-	{
-		turnLeft();
-		turnLeft();
-		turnLeft();
-		movek();
-		turnLeft();
-	}
-}
+// void moveDown(void){
+// 	setStepDelay(0);
+// 	if (facingSouth())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingWest())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
 
-void moveBackF(void){
-   setStepDelay(0);
-   turnLeft();
-   turnLeft();
-   movek();
-   turnLeft();
-   turnLeft();
-}
+// void moveBack(void){
+//    setStepDelay(0);
+//    turnLeft();
+//    turnLeft();
+//    movek();
+//    turnLeft();
+//    turnLeft();
+// }
 			//Karel Moves for Animation
 void placeForItem1() {
 	moveBack();
