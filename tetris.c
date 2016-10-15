@@ -86,8 +86,7 @@ int item010111();
 int main()
 { 	turnOn("tetris111010.kw");
 	
-	setStepDelay(100);
-
+	setStepDelay(SPEED);
 
 		moveToItem();
 		defineShape();
@@ -103,6 +102,7 @@ return 0;
 
 			//Move Objects
 void moveObject() {
+	setStepDelay(0);
 	if ( item111000() )
 	{
 		moveItem111000();
@@ -127,6 +127,7 @@ void moveObject() {
 	{
 		moveItem010111();
 	}
+	setStepDelay(SPEED);
 }
 
 			//Define Type Of Item 
@@ -401,7 +402,6 @@ int behindLeftBeeper() {
 	moveUp();
 	moveLeft();
 	if ( beepersPresent() ){
-		setStepDelay(SPEED);
 		moveRight();
 		moveDown();
 		return 1;
@@ -418,7 +418,6 @@ int behindRightBeeper() {
 	moveUp();
 	moveRight();
 	if ( beepersPresent() ){
-		setStepDelay(SPEED);
 		moveLeft();
 		moveDown();
 		return 1;
@@ -434,7 +433,6 @@ int leftBeeper() {
 	setStepDelay(0);
 	moveLeft();
 	if ( beepersPresent() ){
-		setStepDelay(SPEED);
 		moveRight();
 		return 1;
 	}	
@@ -485,6 +483,7 @@ int downBeeper() {
 
 			//Additions Block Sensors
 int behindIsBlocked() {
+	setStepDelay(0);
 	turnBack();
 	if (frontIsBlocked())
 	{
@@ -495,6 +494,7 @@ int behindIsBlocked() {
 }
 
 int frontLeftBlocked(){
+	setStepDelay(0);
 	moveLeft();
 	if ( leftIsBlocked() )
 	{
@@ -508,6 +508,7 @@ int frontLeftBlocked(){
 }
 
 int frontRightBlocked(){
+	setStepDelay(0);
 	moveRight();
 	if ( leftIsBlocked() )
 	{
@@ -523,6 +524,7 @@ int frontRightBlocked(){
 
 			//Define Shape of Item
 void defineShape() {
+	setStepDelay(0);
 	defineLeftSide();
 	defineCenterSide();
 	defineRightSide();
@@ -664,14 +666,6 @@ void turnRight() {
 	}
 }
 
-
-			//Move Back
-// void moveBack() {
-// 	loop(2) {
-// 		turnLeft();
-// 	}
-// 	movek();
-// }
 	
 			//Turn Back
 void turnBack() {
@@ -699,7 +693,129 @@ void moveToItem() {
 	}
 }
 
-			//Search place for Item1
+
+			//Moves for Define of Item
+// void moveUp(void) {
+// 	setStepDelay(0);
+// 	if (facingNorth())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingWest())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
+
+// void moveLeft(void) {
+// 	setStepDelay(0);
+// 	if (facingWest())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
+
+// void moveRight(void){
+// 	setStepDelay(0);
+// 	if (facingEast())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingWest())
+// 	{	
+// 		moveBack();
+// 	}
+// 	else if (facingSouth())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
+
+// void moveDown(void){
+// 	setStepDelay(0);
+// 	if (facingSouth())
+// 	{	
+// 		movek();
+// 	}
+// 	else if (facingNorth())
+// 	{
+// 		moveBack();
+// 	}
+// 	else if (facingWest())
+// 	{
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 	}
+// 	else if (facingEast())
+// 	{
+// 		turnLeft();
+// 		turnLeft();
+// 		turnLeft();
+// 		movek();
+// 		turnLeft();
+// 	}
+// }
+
+// void moveBack(void){
+//    setStepDelay(0);
+//    turnLeft();
+//    turnLeft();
+//    movek();
+//    turnLeft();
+//    turnLeft();
+// }
+			//Karel Moves for Animation
 void placeForItem1() {
 	moveBack();
 	movek();
@@ -715,7 +831,7 @@ void placeForItem1() {
 }
 
 void moveUp(void) {
-	setStepDelay(20);
+	setStepDelay(0);
 	if (facingNorth())
 	{	
 		setStepDelay(SPEED);
@@ -746,7 +862,7 @@ void moveUp(void) {
 }
 
 void moveLeft(void) {
-	setStepDelay(20);
+	setStepDelay(0);
 	if (facingWest())
 	{	
 		setStepDelay(SPEED);
@@ -777,7 +893,7 @@ void moveLeft(void) {
 }
 
 void moveRight(void){
-	setStepDelay(20);
+	setStepDelay(0);
 	if (facingEast())
 	{	
 		setStepDelay(SPEED);
@@ -808,7 +924,7 @@ void moveRight(void){
 }
 
 void moveDown(void){
-	setStepDelay(100);
+	setStepDelay(0);
 	if (facingSouth())
 	{	
 		setStepDelay(SPEED);
