@@ -52,8 +52,10 @@ void moveLeftBeeper();
 void moveRightBeeper();
 void moveCenterBeeper();
 
+void moveItem111000();
 
-
+int behindLeftBeeper();
+int behindRightBeeper();
 int leftBeeper();
 int rightBeeper();
 int topBeeper();
@@ -63,11 +65,13 @@ int rightBeeper();
 int frontRightBlocked();
 int frontLeftBlocked();
 
+//ITEMS
+int item111000();
 
 
 
 int main()
-{ 	turnOn("tetris.kw");
+{ 	turnOn("tetris1.kw");
 	
 	setStepDelay(100);
 
@@ -75,10 +79,10 @@ int main()
 		moveToItem();
 		defineShape();
 		moveLeft();
-		moveBehindLeftBeeper();
-		moveBehindBeeper();
-		moveCenterBeeper();
-		moveRightBeeper();
+		if ( item111000() )
+		{
+			moveItem111000();
+		}
 		// if (leftBeeper() && beepersPresent() && rightBeeper() )
 		// {
 		// 	if (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked() )
@@ -107,19 +111,28 @@ return 0;
 			//Define functions
 
 			//Define Type Of Item 
-// void item111000() {
-// 	if ( behindleftBeeper() && topBeeper() && behindRightBeeper() )
-// 	{
-// 		while( !frontLeftBlocked() && !leftIsBlocked() && frontRightBlocked() ) {
-// 			putLeftBeeper();
-// 			putCenterBeeper();
-// 			putRightBeeper();
-// 		}
+int item111000() {
+	if ( behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && !beepersPresent() && !rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
 
-// 	}
-// }
+			//Move Items
+void moveItem111000() {
+	do {
+				moveBehindLeftBeeper();
+				moveBehindBeeper();
+				moveBehindRightBeeper();
+			}
+		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked());
+}
 
 			//Additionals Pick & Put & Move Beeper
+
+//MOVE
 void moveBehindBeeper() {
 	pickBehindBeeper();
 	putBeeper();
@@ -152,27 +165,7 @@ void moveCenterBeeper() {
 	moveUp();
 }
 
-
-// void moveleftBeeper() {
-// 	pickLeftBeeper();
-// 	putLeftBeeper();
-// }
-// void moveleftBeeper() {
-// 	pickLeftBeeper();
-// 	putLeftBeeper();
-// }
-
-// void moveleftBeeper() {
-// 	pickLeftBeeper();
-// 	putLeftBeeper();
-// }
-
-// void moveleftBeeper() {
-// 	pickLeftBeeper();
-// 	putLeftBeeper();
-// }
-
-
+//PICK
 void pickCenterBeeper() {
 	if ( beepersPresent() )
 	{
@@ -246,6 +239,7 @@ void pickBehindBeeper() {
 	}	
 }
 
+//PUT
 void putAllBeeper() {
 	putCenterBeeper();
 	putLeftBeeper();
