@@ -59,9 +59,25 @@ int main()
 		moveToItem();
 		defineShape();
 		moveLeft();
-		pickAllBeeper();
-		putCenterBeeper();
-		putRightBeeper();
+		if (leftBeeper() && beepersPresent() && rightBeeper() )
+		{
+			if (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked() )
+			{
+				pickAllBeeper();
+				putAllBeeper();
+			}
+		}
+		else if (leftBeeper() && beepersPresent() && !rightBeeper()) {
+			if (!frontLeftBlocked() && !leftIsBlocked())
+			{
+				putLeftBeeper();
+				putCenterBeeper();
+			}
+		}
+		else if (!leftBeeper() && beepersPresent() && rightBeeper())
+		{
+			if
+		}
 		
 	turnOff();
 return 0;
@@ -69,6 +85,11 @@ return 0;
 
 
 			//Define functions
+
+			//Define Type Of Item 1
+void item111000() {
+
+}
 
 			//Additionals Pick&Move Beeper
 void pickAllBeeper() {
@@ -107,7 +128,6 @@ void putAllBeeper() {
 	putCenterBeeper();
 	putLeftBeeper();
 	putRightBeeper();
-	moveUp();
 }
 
 void putCenterBeeper() {
@@ -131,7 +151,41 @@ void putRightBeeper() {
 	moveUp();
 }
 			//Additionals Sensors
-	
+
+int behindleftBeeper() {
+	setStepDelay(0);
+	moveUp();
+	moveLeft();
+	if ( beepersPresent() ){
+		setStepDelay(SPEED);
+		moveRight();
+		moveDown();
+		return 1;
+	}	
+	else {	 
+		moveRight();
+		moveDown();
+		return 0;
+	}		
+}
+
+int behindRightBeeper() {
+	setStepDelay(0);
+	moveUp();
+	moveRight();
+	if ( beepersPresent() ){
+		setStepDelay(SPEED);
+		moveLeft();
+		moveDown();
+		return 1;
+	}	
+	else {	 
+		moveLeft();
+		moveDown();
+		return 0;
+	}		
+}
+
 int leftBeeper() {
 	setStepDelay(0);
 	moveLeft();
@@ -388,21 +442,6 @@ void moveToItem() {
 	turnRight();
 	while( frontIsClear() ){
 		moveRight();		
-	}
-}
-
-			//Define Type Of Item 1
-void item1() {
-	if (frontIsBlocked() && rightIsClear()) {
-		turnRight();
-		movek();
-		if (rightIsClear()){
-			turnLeft();
-			movek();
-		}
-		while(leftIsBlocked()){
-			movek();
-		}
 	}
 }
 
