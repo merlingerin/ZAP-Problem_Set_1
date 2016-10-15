@@ -41,10 +41,13 @@ W 9 6 E
 W 10 7 E
 W 11 8 E
 
-W 4 9 N
+W 3 9 N
+W 3 10 N
 W 5 9 N
-W 5 11 E
-W 5 10 E
+W 5 10 N
+W 4 9 N
 W 3 11 E
-W 3 10 E
+W 4 11 E
+W 2 10 E
+W 5 10 E
 

@@ -54,6 +54,10 @@ void moveCenterBeeper();
 
 void moveItem110011();
 void moveItem111000();
+void moveItem011110();
+void moveItem110110();
+void moveItem111010();
+void moveItem010111();
 
 int behindLeftBeeper();
 int behindRightBeeper();
@@ -78,7 +82,7 @@ int item010111();
 
 
 int main()
-{ 	turnOn("tetris110110.kw");
+{ 	turnOn("tetris111010.kw");
 	
 	setStepDelay(100);
 
@@ -86,10 +90,10 @@ int main()
 		moveToItem();
 		defineShape();
 		moveLeft();
-		// if ( item110011() )
-		// {
-		// 	moveItem110011();
-		// }
+		if ( item111010() )
+		{
+			moveItem111010();
+		}
 		// moveItem110011();
 		// if (leftBeeper() && beepersPresent() && rightBeeper() )
 		// {
@@ -155,15 +159,6 @@ int item110110() {
 		return 0;
 }
 
-int item011011() {
-	if (!behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && beepersPresent() && rightBeeper() )
-	{
-		return 1;
-	}
-	else 
-		return 0;
-}
-
 int item111010() {
 	if (behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && beepersPresent() && !rightBeeper() )
 	{
@@ -181,6 +176,7 @@ int item010111() {
 	else 
 		return 0;
 }
+
 			//Move Items
 void moveItem111000() {
 		moveUp();
@@ -207,40 +203,40 @@ void moveItem011110() {
 				moveBehindLeftBeeper();
 				moveBehindBeeper();
 				moveBehindRightBeeper();
+				moveDown();
 			}
 }
 
-					// void moveItem111000() {
-					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
-					// 				moveBehindLeftBeeper();
-					// 				moveBehindBeeper();
-					// 				moveBehindRightBeeper();
-					// 			}
-					// }
+void moveItem110110() {
+		while (!frontLeftBlocked() && !leftIsBlocked()){
+				moveBehindLeftBeeper();
+				moveBehindBeeper();
+				moveLeftBeeper();
+				moveCenterBeeper();
+				moveDown();
+			}
+}
 
-					// void moveItem111000() {
-					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
-					// 				moveBehindLeftBeeper();
-					// 				moveBehindBeeper();
-					// 				moveBehindRightBeeper();
-					// 			}
-					// }
+void moveItem111010() {
+		while (!frontIsBlocked() && !leftIsBlocked() && !behindIsBlocked()){
+				moveBehindLeftBeeper();
+				moveBehindBeeper();
+				moveBehindRightBeeper();
+				moveCenterBeeper();
+				moveDown();
+			}
+}
 
-					// void moveItem111000() {
-					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
-					// 				moveBehindLeftBeeper();
-					// 				moveBehindBeeper();
-					// 				moveBehindRightBeeper();
-					// 			}
-					// }
+void moveItem010111() {
+		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+				moveLeftBeeper();
+				moveBehindBeeper();
+				moveRightBeeper();
+				moveCenterBeeper();
+				moveDown();
+			}
+}
 
-					// void moveItem111000() {
-					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
-					// 				moveBehindLeftBeeper();
-					// 				moveBehindBeeper();
-					// 				moveBehindRightBeeper();
-					// 			}
-					// }
 
 			//Additionals Pick & Put & Move Beeper
 
