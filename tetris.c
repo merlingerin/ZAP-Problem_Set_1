@@ -52,6 +52,7 @@ void moveLeftBeeper();
 void moveRightBeeper();
 void moveCenterBeeper();
 
+void moveItem110011();
 void moveItem111000();
 
 int behindLeftBeeper();
@@ -62,16 +63,22 @@ int topBeeper();
 int downBeeper();
 int rightBeeper();
 int rightBeeper();
+int behindIsBlocked();
 int frontRightBlocked();
 int frontLeftBlocked();
 
 //ITEMS
 int item111000();
-
+int item110011();
+int item011110();
+int item110110();
+int item011011();
+int item111010();
+int item010111();
 
 
 int main()
-{ 	turnOn("tetris1.kw");
+{ 	turnOn("tetris110110.kw");
 	
 	setStepDelay(100);
 
@@ -79,10 +86,11 @@ int main()
 		moveToItem();
 		defineShape();
 		moveLeft();
-		if ( item111000() )
-		{
-			moveItem111000();
-		}
+		// if ( item110011() )
+		// {
+		// 	moveItem110011();
+		// }
+		// moveItem110011();
 		// if (leftBeeper() && beepersPresent() && rightBeeper() )
 		// {
 		// 	if (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked() )
@@ -120,15 +128,119 @@ int item111000() {
 		return 0;
 }
 
+int item110011() {
+	if (behindLeftBeeper() && topBeeper() && !behindRightBeeper() && !leftBeeper() && beepersPresent() && rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
+
+int item011110() {
+	if (!behindLeftBeeper() && topBeeper() && behindRightBeeper() && leftBeeper() && beepersPresent() && !rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
+
+int item110110() {
+	if (behindLeftBeeper() && topBeeper() && !behindRightBeeper() && leftBeeper() && beepersPresent() && !rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
+
+int item011011() {
+	if (!behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && beepersPresent() && rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
+
+int item111010() {
+	if (behindLeftBeeper() && topBeeper() && behindRightBeeper() && !leftBeeper() && beepersPresent() && !rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
+
+int item010111() {
+	if (!behindLeftBeeper() && topBeeper() && !behindRightBeeper() && leftBeeper() && beepersPresent() && rightBeeper() )
+	{
+		return 1;
+	}
+	else 
+		return 0;
+}
 			//Move Items
 void moveItem111000() {
-	do {
+		moveUp();
+		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+				moveLeftBeeper();
+				moveCenterBeeper();
+				moveRightBeeper();
+				moveDown();
+			}
+}
+
+void moveItem110011() {
+		while (!frontIsBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+				moveBehindLeftBeeper();
+				moveBehindBeeper();
+				moveCenterBeeper();
+				moveRightBeeper();
+				moveDown();
+			}
+}
+
+void moveItem011110() {
+		while (!frontLeftBlocked() && !leftIsBlocked() && !behindIsBlocked()){
 				moveBehindLeftBeeper();
 				moveBehindBeeper();
 				moveBehindRightBeeper();
 			}
-		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked());
 }
+
+					// void moveItem111000() {
+					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+					// 				moveBehindLeftBeeper();
+					// 				moveBehindBeeper();
+					// 				moveBehindRightBeeper();
+					// 			}
+					// }
+
+					// void moveItem111000() {
+					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+					// 				moveBehindLeftBeeper();
+					// 				moveBehindBeeper();
+					// 				moveBehindRightBeeper();
+					// 			}
+					// }
+
+					// void moveItem111000() {
+					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+					// 				moveBehindLeftBeeper();
+					// 				moveBehindBeeper();
+					// 				moveBehindRightBeeper();
+					// 			}
+					// }
+
+					// void moveItem111000() {
+					// 		while (!frontLeftBlocked() && !leftIsBlocked() && !frontRightBlocked()){
+					// 				moveBehindLeftBeeper();
+					// 				moveBehindBeeper();
+					// 				moveBehindRightBeeper();
+					// 			}
+					// }
 
 			//Additionals Pick & Put & Move Beeper
 
@@ -369,6 +481,16 @@ int downBeeper() {
 }
 
 			//Additions Block Sensors
+int behindIsBlocked() {
+	turnBack();
+	if (frontIsBlocked())
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+
 int frontLeftBlocked(){
 	moveLeft();
 	if ( leftIsBlocked() )
@@ -491,10 +613,10 @@ void drowRightSide00(){
 	moveDown();
 	moveLeft();
 	moveDown();
-	moveDown();
 }
 
 			//Drow Center
+
 void drowCenter11() {
 	putBeeper();
 	moveDown();
